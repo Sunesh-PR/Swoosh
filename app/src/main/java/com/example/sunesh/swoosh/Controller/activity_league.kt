@@ -13,6 +13,18 @@ import kotlinx.android.synthetic.main.activity_league.*
 class activity_league : AppCompatActivity() {
 
     var player= Player("","")
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putParcelable(PLAYER_EXTRAS,player)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if(savedInstanceState!=null){
+            player = savedInstanceState.getParcelable<Player>(PLAYER_EXTRAS)
+        }
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_league)
