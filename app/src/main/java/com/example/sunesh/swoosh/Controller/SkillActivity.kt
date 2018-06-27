@@ -1,25 +1,27 @@
-package com.example.sunesh.swoosh
+package com.example.sunesh.swoosh.Controller
 
 import android.content.Intent
+import android.media.AsyncPlayer
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.example.sunesh.swoosh.Model.Player
+import com.example.sunesh.swoosh.R
+import com.example.sunesh.swoosh.Utilities.PLAYER_EXTRAS
 import kotlinx.android.synthetic.main.activity_skill.*
 
 class SkillActivity : AppCompatActivity() {
-    var league=""
-    var skill=""
+    lateinit var player: Player
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_skill)
-        league=intent.getStringExtra(LEAGUE_EXTRAS)
+        player=intent.getParcelableExtra(PLAYER_EXTRAS)
     }
     fun skillnextclicked(view: View){
         if(beginnerskillbtn.isChecked||ballerskillbtn.isChecked) {
-            val final= Intent(this,FinishActivity::class.java)
-            final.putExtra(LEAGUE_EXTRAS,league)
-            final.putExtra(SKILL_EXTRAS,skill)
+            val final= Intent(this, FinishActivity::class.java)
+            final.putExtra(PLAYER_EXTRAS,player)
             startActivity(final)
         }else{
             Toast.makeText(this,"Select a skill to continue",Toast.LENGTH_SHORT).show()
@@ -27,12 +29,12 @@ class SkillActivity : AppCompatActivity() {
     }
     fun beginnerskillclicked(view: View){
         ballerskillbtn.isChecked=false
-        skill="beginners"
+        player.skill="beginners"
 
     }
     fun ballerskillclicked(view: View){
         beginnerskillbtn.isChecked=false
-        skill="baller"
+        player.skill="baller"
 
     }
 }
